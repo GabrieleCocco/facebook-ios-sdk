@@ -172,18 +172,18 @@
 
 @implementation FBWebDialogs
 
-+ (void)presentDialogModallyWithSession:(FBSession *)session
++ (FBDialog*)presentDialogModallyWithSession:(FBSession *)session
                                  dialog:(NSString *)dialog
                              parameters:(NSDictionary *)parameters
                                 handler:(FBWebDialogHandler)handler {
-    [FBWebDialogs presentDialogModallyWithSession:session
+    return [FBWebDialogs presentDialogModallyWithSession:session
                                            dialog:dialog
                                        parameters:parameters
                                           handler:handler
                                          delegate:nil];
 }
 
-+ (void)presentDialogModallyWithSession:(FBSession *)session
++ (FBDialog*)presentDialogModallyWithSession:(FBSession *)session
                                  dialog:(NSString *)dialog
                              parameters:(NSDictionary *)parameters
                                 handler:(FBWebDialogHandler)handler
@@ -261,14 +261,15 @@
     innerDelegate.dialog = d;
     [d show];
     [d release];
+    return d;
 }
 
-+ (void)presentRequestsDialogModallyWithSession:(FBSession *)session
++ (FBDialog*)presentRequestsDialogModallyWithSession:(FBSession *)session
                                         message:(NSString *)message
                                           title:(NSString *)title
                                      parameters:(NSDictionary *)parameters
                                         handler:(FBWebDialogHandler)handler {
-    [FBWebDialogs presentRequestsDialogModallyWithSession:session
+    return [FBWebDialogs presentRequestsDialogModallyWithSession:session
                                                   message:message
                                                     title:title
                                                parameters:parameters
@@ -276,7 +277,7 @@
                                               friendCache:nil];
 }
 
-+ (void)presentRequestsDialogModallyWithSession:(FBSession *)session
++ (FBDialog*)presentRequestsDialogModallyWithSession:(FBSession *)session
                                         message:(NSString *)message
                                           title:(NSString *)title
                                      parameters:(NSDictionary *)parameters
@@ -299,17 +300,17 @@
         [parametersImpl setObject:title forKey:@"title"];
     }
 
-    [FBWebDialogs presentDialogModallyWithSession:session
+    return[FBWebDialogs presentDialogModallyWithSession:session
                                            dialog:@"apprequests"
                                        parameters:parametersImpl
                                           handler:handler
                                          delegate:friendCache];
 }
 
-+ (void)presentFeedDialogModallyWithSession:(FBSession *)session
++ (FBDialog*)presentFeedDialogModallyWithSession:(FBSession *)session
                                  parameters:(NSDictionary *)parameters
                                     handler:(FBWebDialogHandler)handler {
-    [FBWebDialogs presentDialogModallyWithSession:session
+    return [FBWebDialogs presentDialogModallyWithSession:session
                                            dialog:@"feed"
                                        parameters:parameters
                                           handler:handler];
